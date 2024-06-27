@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\SanPhamController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,3 +34,8 @@ Route::get('/user/{id}/{name?}', function(string $id, string $ten = null) {
     echo route('welcome') . "<br>";
     return "User:" . $id . "- Name:" . $ten;
 });
+
+// Tạo controller: php artisan make:controller SanPhamController
+Route::get('/san-pham', [SanPhamController::class, 'index'])->name('san-pham.index');
+Route::get('/san-pham/{id}', [SanPhamController::class, 'detail']);
+Route::get('/san-pham/xoa/{id}', [SanPhamController::class, 'delete']);
