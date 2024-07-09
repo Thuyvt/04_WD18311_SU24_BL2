@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NhacsiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SanPhamController;
 /*
@@ -24,7 +25,7 @@ use App\Http\Controllers\SanPhamController;
 // });
 // // Ngoài ra 2 phương thức sử dụng trong TH nhiều method chung uri
 // Route::match(['put', 'patch'], '/user', function() {
-//     // .. 
+//     // ..
 // });
 Route::any('/', function() {
     return view('hello');
@@ -39,3 +40,11 @@ Route::get('/user/{id}/{name?}', function(string $id, string $ten = null) {
 Route::get('/san-pham', [SanPhamController::class, 'index'])->name('san-pham.index');
 Route::get('/san-pham/{id}', [SanPhamController::class, 'detail']);
 Route::get('/san-pham/xoa/{id}', [SanPhamController::class, 'delete']);
+
+Route::get('/nhacsi', [NhacsiController::class, 'index'])->name('nhacsi.index');
+Route::get('/nhacsi/create', [NhacsiController::class, 'create'])->name('nhacsi.create');
+Route::get('/nhacsi/{id}/show', [NhacsiController::class, 'show'])->name('nhacsi.show');
+Route::get('/nhacsi/{id}/edit', [NhacsiController::class, 'edit'])->name('nhacsi.edit');
+Route::post('/nhacsi/{id}/store', [NhacsiController::class, 'store'])->name('nhacsi.store');
+Route::put('/nhacsi/{id}/update', [NhacsiController::class, 'update'])->name('nhacsi.update');
+Route::delete('/nhacsi/{id}/destroy', [NhacsiController::class, 'destroy'])->name('nhacsi.destroy');
