@@ -1,13 +1,28 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<h2>Cập nhật nhạc sĩ</h2>
-</body>
-</html>
+@extends('layouts.master')
+@section('title')
+    Cập nhật nhạc sĩ
+@endsection
+
+@section('content')
+    <form action="{{route('nhacsi.update', $model->id)}}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <div class="row">
+            <label for="" class="form-label">Tên</label>
+            <input type="text" class="form-control" name="ten1" value="{{$model->ten}}">
+        </div>
+        <div class="row">
+            <label for="" class="form-label">Ảnh</label>
+            <input type="file" class="form-control" name="anh">
+        </div>
+        <div class="row">
+            <label for="" class="form-label">Ngày sinh</label>
+            <input type="date" class="form-control" name="ngaysinh" value="{{$model->ngaysinh}}">
+        </div>
+        <div class="row">
+            <label for="" class="form-label">Quê quán</label>
+            <input type="text" class="form-control" name="quequan" value="{{$model->quequan}}">
+        </div>
+        <button type="submit" class="btn btn-success">Cập nhật</button>
+    </form>
+@endsection

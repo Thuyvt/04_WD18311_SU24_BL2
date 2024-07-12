@@ -45,6 +45,6 @@ Route::get('/nhacsi', [NhacsiController::class, 'index'])->name('nhacsi.index');
 Route::get('/nhacsi/create', [NhacsiController::class, 'create'])->name('nhacsi.create');
 Route::get('/nhacsi/{id}/show', [NhacsiController::class, 'show'])->name('nhacsi.show');
 Route::get('/nhacsi/{id}/edit', [NhacsiController::class, 'edit'])->name('nhacsi.edit');
-Route::post('/nhacsi/{id}/store', [NhacsiController::class, 'store'])->name('nhacsi.store');
+Route::post('/nhacsi/store', [NhacsiController::class, 'store'])->name('nhacsi.store');
 Route::put('/nhacsi/{id}/update', [NhacsiController::class, 'update'])->name('nhacsi.update');
 Route::delete('/nhacsi/{id}/destroy', [NhacsiController::class, 'destroy'])->name('nhacsi.destroy');
