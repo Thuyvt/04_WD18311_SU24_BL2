@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\NhacsiController;
 use Illuminate\Support\Facades\Route;
@@ -15,9 +17,9 @@ use App\Http\Controllers\SanPhamController;
 |
 */
 // Method: get, post, put, patch, delete
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+ Route::get('/', function () {
+     return view('welcome');
+ });
 // Route::put('/user', function() {
 //     //...
 // });
@@ -28,9 +30,9 @@ use App\Http\Controllers\SanPhamController;
 // Route::match(['put', 'patch'], '/user', function() {
 //     // ..
 // });
-Route::any('/', function() {
-    return view('hello');
-})->name('welcome');
+//Route::any('/', function() {
+//    return view('hello');
+//})->name('welcome');
 
 Route::get('/user/{id}/{name?}', function(string $id, string $ten = null) {
     echo route('welcome') . "<br>";
@@ -51,3 +53,20 @@ Route::put('/nhacsi/{id}/update', [NhacsiController::class, 'update'])->name('nh
 Route::delete('/nhacsi/{id}/destroy', [NhacsiController::class, 'destroy'])->name('nhacsi.destroy');
 
 Route::resource('books', BookController::class);
+
+// khai báo route cho login và register
+Route::get('auth/login', [LoginController::class, 'index'])
+    ->name('login');
+Route::post('auth/login', [LoginController::class, 'login'])
+    ->name('login');
+Route::get('auth/logout', [LoginController::class, 'logout'])
+    ->name('logout');
+
+Route::get('auth/register', [RegisterController::class, 'index'])
+    ->name('register');
+Route::post('auth/register', [RegisterController::class, 'register'])
+    ->name('register');
+
+Route::get('admin', function () {
+    return 'Đây là admin';
+})->middleware('isAdmin');
