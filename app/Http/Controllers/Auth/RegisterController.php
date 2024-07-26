@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\VerifyEmail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -26,10 +28,14 @@ class RegisterController extends Controller
 
         // tạo tài khoản
         $user = User::query()->create($data);
-        // Login bằng tk user vừa tạo
-        Auth::login($user);
-        // generate lại token
-        $request->session()->regenerate();
+        // Gửi email xác nhận
+        $token = base64_encode($user->email);
+        Mail::to($user->email)->send(new VerifyEmail($user->name, $token));
+
+//        // Login bằng tk user vừa tạo
+//        Auth::login($user);
+//        // generate lại token
+//        $request->session()->regenerate();
         return redirect()->intended('/');
     }
 }
