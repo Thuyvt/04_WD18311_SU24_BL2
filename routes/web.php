@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\backup\LoginController;
+use App\Http\Controllers\Auth\backup\RegisterController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\NhacsiController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SanPhamController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,23 +54,31 @@ Route::post('/nhacsi/store', [NhacsiController::class, 'store'])->name('nhacsi.s
 Route::put('/nhacsi/{id}/update', [NhacsiController::class, 'update'])->name('nhacsi.update');
 Route::delete('/nhacsi/{id}/destroy', [NhacsiController::class, 'destroy'])->name('nhacsi.destroy');
 
-Route::resource('books', BookController::class);
+Route::resource('books', BookController::class)
+    ->middleware(['auth', 'verified']);
 
 // khai báo route cho login và register
-Route::get('auth/login', [LoginController::class, 'index'])
-    ->name('login');
-Route::post('auth/login', [LoginController::class, 'login'])
-    ->name('login');
-Route::get('auth/logout', [LoginController::class, 'logout'])
-    ->name('logout');
-Route::get('auth/verify/{token}', [LoginController::class, 'verify'])
-    ->name('verify');
-
-Route::get('auth/register', [RegisterController::class, 'index'])
-    ->name('register');
-Route::post('auth/register', [RegisterController::class, 'register'])
-    ->name('register');
+//Route::get('auth/login', [LoginController::class, 'index'])
+//    ->name('login');
+//Route::post('auth/login', [LoginController::class, 'login'])
+//    ->name('login');
+//Route::get('auth/logout', [LoginController::class, 'logout'])
+//    ->name('logout');
+//Route::get('auth/verify/{token}', [LoginController::class, 'verify'])
+//    ->name('verify');
+//
+//Route::get('auth/register', [RegisterController::class, 'index'])
+//    ->name('register');
+//Route::post('auth/register', [RegisterController::class, 'register'])
+//    ->name('register');
 
 Route::get('admin', function () {
     return 'Đây là admin';
 })->middleware('isAdmin');
+
+Auth::routes([
+    'verify' => true,
+//    'register' => false,
+]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
